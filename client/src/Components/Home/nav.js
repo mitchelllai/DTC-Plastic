@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SettingsIcon from '@material-ui/icons/Settings'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import HomeIcon from '@material-ui/icons/Home';
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles( (theme) => ({
@@ -40,6 +41,9 @@ function Navbar () {
                 <Toolbar>
 
                             <IconButton><MenuIcon></MenuIcon></IconButton>
+
+                            <IconButton component = {Link}
+                                        to = {'/home'}><HomeIcon></HomeIcon></IconButton>
 
                             <Grid item className = {classes.break}></Grid>
 
