@@ -4,6 +4,7 @@ import Login from './Components/Login/login';
 import Homepage from './Components/Home/home'
 import Registration from './Components/Registration/registration'
 import Profile from './Components/Profile/profile'
+import DailyPosts from './Components/Posts/postpage'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
                         </Route>
 
                     <Route exact path = "/profile" component = {Profile}>
+
+                        </Route>
+
+                    <Route exact path = "/dailyposts" component = {DailyPosts}>
 
                         </Route>
 

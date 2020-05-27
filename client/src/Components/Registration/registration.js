@@ -1,11 +1,121 @@
 import React from 'react';
 import '@material-ui/core'
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, TextField} from '@material-ui/core';
+import { Link } from 'react-router-dom'
 
-function Registration () {
-    return(
-        <h1>This is the Registration page</h1>
-    );
+import image from "./turtles.gif"
+
+const useStyles = makeStyles( (theme) => ({ 
+
+  root: {
+    height: "100vh",
+    width: "100vw",
+    flexDirection: "row",
+  },
+
+  right_div: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+  },
+
+  left_div: {
+    backgroundImage: `url(${image})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+
+  register_button: {
+    //Add custom CSS for register button
+    margin: theme.spacing(3),
+  },
+  
+  login_button: {
+    //Add custom CSS for login button
+    margin: theme.spacing(3),
+  },
+
+  forgotpass: {
+      //Add custom CSS for forgot password button
+    margin: theme.spacing(3),
+  },
+
+  textfield:{
+    margin: theme.spacing(3),
+    width: "75%"
+  },
+
+
+
+}))
+
+function Registration() {
+  const classes = useStyles();
+
+  return (
+    <Grid container
+            xs = {12}
+            className = {classes.root}
+    >
+
+      <Grid item 
+            container
+            xs = {false}
+            s = {4}
+            md = {8}
+            lg = {8}
+            className = {classes.left_div}>
+      </Grid>
+
+
+      <Grid item xs = {12}
+                  s = {8}
+                  md = {4}
+                  lg = {4}
+                  className = {classes.right_div}>
+
+        <TextField className = {classes.textfield}
+                    placeholder = "First Name"
+                    variant = "outlined"></TextField>
+        
+        <TextField className = {classes.textfield}
+                    placeholder = "Last Name"
+                    variant = "outlined"></TextField>
+
+        <TextField className = {classes.textfield}
+                    placeholder = "Email"
+                    variant = "outlined"></TextField>
+
+        <TextField className = {classes.textfield}
+                    placeholder = "Password"
+                    variant = "outlined"></TextField>
+
+        <TextField className = {classes.textfield}
+                    placeholder = "Repeat Password"
+                    variant = "outlined"></TextField>
+
+        <Button className = {classes.register_button}
+                variant = "contained"
+                component = {Link}
+                to = {'/home'}>
+          Register
+        </Button>
+
+        <Button className = {classes.register_button}
+                variant = "outlined"
+                component = {Link}
+                to = {'/'}>
+          I already have an account
+        </Button>
+
+      </Grid>
+
+    </Grid>
+  );
 }
 
 export default Registration;

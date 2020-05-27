@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, Typography, CardMedia, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles( (theme) => ({
@@ -42,7 +43,9 @@ function ContentCard(props){
     return(
 
         <Card className = {classes.card_sizing} variant="outlined">
-            <CardActionArea className = {classes.media}>
+            <CardActionArea className = {classes.media}
+                            component = {Link}
+                            to = "/dailyposts">
                 <CardMedia
                     component = "img"
                     image = {props.imgid}
