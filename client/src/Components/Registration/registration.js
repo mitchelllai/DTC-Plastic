@@ -1,8 +1,12 @@
-import React from 'react';
-import '@material-ui/core'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, TextField} from '@material-ui/core';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Alert from '../Redux/Alert';
 
 import image from "./turtles.gif"
 
@@ -53,8 +57,51 @@ const useStyles = makeStyles( (theme) => ({
 
 }))
 
-function Registration() {
+function Registration(props) {
   const classes = useStyles();
+  const [formData, setFormData] = useState(
+
+      {
+          name: '',
+          email: '',
+          password: '',
+          password2: '',
+
+      }
+
+  );
+
+  const {name, email, password, password2} = formData;
+
+  const onChange = e => setFormData({...formData, [e.target.name]: e.target.value });
+  const onSubmit = async e => {
+      e.preventDefault();
+      if (password !== password2) {
+          props.setAlert('Passwords do not match', 'danger');
+      } else {
+          const newUser = {
+              name,
+              email,
+              password
+          }
+
+          try{
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            const body = JSON.stringify(newUser);
+            const res = await axios.post('/api/users', body, config);
+            console.log(res.data);
+
+          }catch(err){
+            console.error(err.response.data);
+          }
+      }
+  }
 
   return (
     <Grid container
@@ -78,32 +125,57 @@ function Registration() {
                   lg = {4}
                   className = {classes.right_div}>
 
+        <Alert/>
+
+        <form style = {{width: "100%", 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        justify: "center", 
+                        alignItems: "center"}}
+                        
+                onSubmit = {e => onSubmit(e)}>
+
         <TextField className = {classes.textfield}
-                    placeholder = "First Name"
-                    variant = "outlined"></TextField>
-        
-        <TextField className = {classes.textfield}
-                    placeholder = "Last Name"
+                    name = "name"
+                    placeholder = "Name"
+                    value = {name}
+                    onChange = {e => onChange(e)}
                     variant = "outlined"></TextField>
 
         <TextField className = {classes.textfield}
+                    name = "email"
                     placeholder = "Email"
+                    value = {email}
+                    onChange = {e => onChange(e)}
+                    type = "email"
                     variant = "outlined"></TextField>
 
         <TextField className = {classes.textfield}
+                    name = "password"
                     placeholder = "Password"
+                    value = {password}
+                    onChange = {e => onChange(e)}
+                    type = "password"
                     variant = "outlined"></TextField>
 
         <TextField className = {classes.textfield}
-                    placeholder = "Repeat Password"
+                    name = "password2"
+                    placeholder = "Confirm Password"
+                    value = {password2}
+                    onChange = {e => onChange(e)}
+                    type = "password"
                     variant = "outlined"></TextField>
 
         <Button className = {classes.register_button}
                 variant = "contained"
-                component = {Link}
-                to = {'/home'}>
+                type = "submit"
+                // component = {Link}
+                // to = {'/home'}
+                >
           Register
         </Button>
+
+        </form>
 
         <Button className = {classes.register_button}
                 variant = "outlined"
@@ -118,4 +190,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default connect(null, { setAlert })(Registration);

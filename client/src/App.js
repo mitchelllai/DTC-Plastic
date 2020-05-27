@@ -6,9 +6,15 @@ import Registration from './Components/Registration/registration'
 import Profile from './Components/Profile/profile'
 import DailyPosts from './Components/Posts/postpage'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Alert from './Components/Redux/Alert'
+
+//Redux
+import { Provider } from 'react-redux';
+import store from './store'
 
 function App() {
     return(
+        <Provider store = {store}>
         <Router>
             <Fragment>
                 <Switch>
@@ -36,6 +42,7 @@ function App() {
                 </Switch>
             </Fragment>
         </Router>
+        </Provider>
     );
 }
 

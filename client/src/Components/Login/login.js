@@ -80,10 +80,12 @@ function Login() {
 
         <TextField className = {classes.textfield}
                     placeholder = "Email"
+                    type = "email"
                     variant = "outlined"></TextField>
 
         <TextField className = {classes.textfield}
                     placeholder = "Password"
+                    type = "password"
                     variant = "outlined"></TextField>
 
         <Button className = {classes.button}
