@@ -7,10 +7,10 @@ const Alert = ({ alerts }) =>
         <div key = {alert.id} style = {{display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        width: "75%",
+                                        width: "90%",
                                         height: "50px",
                                         backgroundColor: "red",
-                                        color: "white"}}>
+                                        color: "white",}}>
             {alert.msg}
         </div>
     ));
@@ -19,8 +19,8 @@ Alert.PropTypes = {
     alerts: PropTypes.array.isRequired
 };
 
-const mapStatetoProps = state => ({
+const mapStateToProps = state => ({
     alerts: state.alert
 });
 
-export default connect(mapStatetoProps)(Alert);
+export default connect(mapStateToProps)(Alert);

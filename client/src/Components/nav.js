@@ -6,7 +6,11 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import HomeIcon from '@material-ui/icons/Home';
-import { Link } from 'react-router-dom'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logout } from '../actions/auth'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles( (theme) => ({
 
@@ -31,9 +35,13 @@ const useStyles = makeStyles( (theme) => ({
 
 }))
 
-function Navbar () {
+function Navbar ( {logout} ) {
 
     const classes = useStyles();
+
+    // if (!isAuthenticated){
+    //     return( <Redirect to = '/'></Redirect>)
+    // }
 
     return(
         <AppBar elevation = {0}
@@ -42,6 +50,10 @@ function Navbar () {
                 <Toolbar>
 
                             <IconButton><MenuIcon></MenuIcon></IconButton>
+
+                            <IconButton onClick = {logout}
+                                        component = {Link}
+                                        to = {'/'}><ExitToAppIcon></ExitToAppIcon></IconButton>
 
                             <IconButton component = {Link}
                                         to = {'/home'}><HomeIcon></HomeIcon></IconButton>
@@ -68,4 +80,13 @@ function Navbar () {
 
 }
 
-export default Navbar;
+Navbar.propTypes = {
+    logout: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);

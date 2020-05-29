@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from './nav'
+import Navbar from '../nav'
 import Content from './content'
 
 const useStyles = makeStyles( (theme) => ({ 
@@ -32,8 +32,8 @@ function Homepage () {
     return(
         <Grid   container
                 className = {classes.root} 
-                direction = "column">
-            <Grid item> <Navbar> </Navbar> </Grid>
+                direction = "row">
+            <Navbar></Navbar>
 
             <Grid container item className = {classes.main}> 
 

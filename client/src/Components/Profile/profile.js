@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Grid, Paper, Typography, Avatar, Box} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from './nav'
+import Navbar from '../nav'
 import willy from './willy.jpg'
 import postcontent from './cookietube.png'
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles( (theme) => ({
 
     main: {
         height: "100%",
-        marginTop: "80px"
+        marginTop: "20px"
     }, 
 
     postsWrap: {
@@ -80,9 +80,9 @@ function Profile () {
     return(
         <Grid   container
                 className = {classes.root} 
-                direction = "column">
+                direction = "row">
 
-            <Grid item> <Navbar></Navbar> </Grid>
+            <Navbar></Navbar>
 
             <Grid   container
                     item 

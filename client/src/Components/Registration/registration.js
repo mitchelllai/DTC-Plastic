@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 import '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, TextField} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Alert from '../Redux/Alert';
+import PropTypes from 'prop-types'
 
 import image from "./turtles.gif"
 
@@ -57,7 +59,7 @@ const useStyles = makeStyles( (theme) => ({
 
 }))
 
-function Registration(props) {
+function Registration({setAlert, register}) {
   const classes = useStyles();
   const [formData, setFormData] = useState(
 
@@ -77,29 +79,32 @@ function Registration(props) {
   const onSubmit = async e => {
       e.preventDefault();
       if (password !== password2) {
-          props.setAlert('Passwords do not match', 'danger');
+          setAlert('Passwords do not match', 'danger');
       } else {
-          const newUser = {
-              name,
-              email,
-              password
-          }
 
-          try{
+        register({name, email, password});
+        
+      //     const newUser = {
+      //         name,
+      //         email,
+      //         password
+      //     }
 
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
+      //     try{
 
-            const body = JSON.stringify(newUser);
-            const res = await axios.post('/api/users', body, config);
-            console.log(res.data);
+      //       const config = {
+      //           headers: {
+      //               'Content-Type': 'application/json'
+      //           }
+      //       }
 
-          }catch(err){
-            console.error(err.response.data);
-          }
+      //       const body = JSON.stringify(newUser);
+      //       const res = await axios.post('/api/users', body, config);
+      //       console.log(res.data);
+
+      //     }catch(err){
+      //       console.error(err.response.data);
+      //     }
       }
   }
 
@@ -190,4 +195,9 @@ function Registration(props) {
   );
 }
 
-export default connect(null, { setAlert })(Registration);
+Registration.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
+};
+
+export default connect(null, { setAlert, register })(Registration);
